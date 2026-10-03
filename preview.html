@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RadHard Benchmark 2026 — Radiation Effects on Electronics, From Accelerators to Space</title>
+<meta name="description" content="Reproducible benchmark: environment → interaction → effect → mitigation → assurance. 5 experiments, live GOES verification, Docker one-command run.">
+<style>
+:root{--bg:#0b1020;--card:#151d33;--line:#243154;--txt:#eaf0ff;--mut:#9fb0d0;--acc:#5eead4;--acc2:#a78bfa;--warn:#fbbf24;--ok:#34d399;--bad:#f87171}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 20% -10%,#1b2a5a 0%,var(--bg) 55%),var(--bg);color:var(--txt);line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;background:linear-gradient(180deg,rgba(94,234,212,.08),rgba(167,139,250,.08));border:1px solid var(--line);border-radius:20px;padding:28px}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.badge{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;margin:2px;color:var(--mut);background:#0f1730}
+h1{font-size:34px;line-height:1.15;margin:12px 0}h2{margin-top:44px;border-bottom:1px solid var(--line);padding-bottom:8px}p.mut{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.card img,.shot{width:100%;border-radius:12px;border:1px solid var(--line);background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}th{background:#0f1730;color:var(--acc)}
+code,pre{background:#0a0f22;border:1px solid var(--line);border-radius:8px;padding:2px 6px}.block{background:#0a0f22;border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto}
+.btn{display:inline-block;background:var(--acc);color:#06251f;font-weight:700;border-radius:10px;padding:10px 16px;text-decoration:none;margin:4px 6px 4px 0}
+.btn2{display:inline-block;border:1px solid var(--acc);color:var(--acc);border-radius:10px;padding:10px 16px;text-decoration:none;margin:4px 6px 4px 0}
+.kpi{font-size:26px;font-weight:800;color:var(--acc)}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+summary{cursor:pointer;font-weight:700}
+footer{color:var(--mut);font-size:13px;margin-top:40px}
+.toc a{color:var(--acc);text-decoration:none;margin-right:12px}
+video{width:100%;border-radius:12px;border:1px solid var(--line);background:#000}
+</style>
+</head>
+<body><div class="wrap">
+<div class="hero">
+<div>
+<span class="badge">MIT</span> <span class="badge">Python 3.10+</span> <span class="badge">Docker</span> <span class="badge">CI passing</span> <span class="badge">5 experiments</span> <span class="badge">live GOES verified</span>
+<h1>🛰️ RadHard Benchmark 2026<br>Radiation Effects on Electronics</h1>
+<p><b>From accelerators to space — one repo that lets you predict, test, and prove your electronics will survive radiation.</b></p>
+<p class="mut">CEO summary: pick your mission (CubeSat, GEO comsat, LHC), get the dose + upset rate in seconds, see which parts pass a strict space gate, and what to derate or scrub. Everything regenerates with one command. No lab needed to learn; lab-ready when you test.</p>
+<p><a class="btn" href="#quickstart">🚀 Run in 60 seconds</a> <a class="btn2" href="#beginner">🌱 Start as a beginner</a> <a class="btn2" href="results/">📊 Results folder</a></p>
+<p class="toc"><a href="#beginner">Beginner</a><a href="#demo">Demo</a><a href="#features">Features</a><a href="#stories">User stories</a><a href="#exps">Experiments</a><a href="#rha">RHA gate</a><a href="#faq">FAQ</a></p>
+</div>
+<div>
+<video controls poster="results/exp02_weibull.png" src="assets/demo.mp4"></video>
+<p class="mut" style="font-size:13px">Demo video (10s): Weibull SEE sweep + TID sweep. GIF fallback below. If video does not play, open <a style="color:var(--acc)" href="assets/demo.mp4">assets/demo.mp4</a>.</p>
+<img class="shot" src="assets/demo.gif" alt="Animated demo: Weibull and TID sweeps">
+</div>
+</div>
+
+<h2 id="beginner">🌱 Beginner guide — read this and you are a professional</h2>
+<div class="card">
+<p><b>Let's work this out in a step-by-step way to be sure we have the right answer.</b></p>
+<ol>
+<li><b>Radiation is just energetic particles + photons.</b> In space: trapped protons/electrons in the Van Allen belts, solar storm protons, cosmic heavy ions. Near accelerators: mixed protons/neutrons/pions + gammas. On planes: neutron secondaries.</li>
+<li><b>Three things happen in chips:</b> <b>TID</b> = slow sunburn (charge trapped in oxide → threshold drifts, leakage). <b>DDD</b> = crystal bruises (atoms knocked out → sensors/optics degrade). <b>SEE</b> = lightning strike (one particle flips a bit, glitches, latches, or burns).</li>
+<li><b>Small transistors = easy to flip.</b> 1 unit of LET in 1 µm silicon dumps ~10.4 fC. An old 180 nm gate needs ~18 fC to flip; a 7 nm FinFET needs ~0.37 fC. That is why your phone chip is TID-tough but SEE-fragile.</li>
+<li><b>Power chips lie.</b> Silicon-carbide looks ultra-hard, yet a 1200 V device can burn at 500 V when a heavy ion hits. Rule: operate below 200 V or prove a safe area.</li>
+<li><b>Fixes that work:</b> triple-vote (TMR), error-correcting memory + frequent scrubbing, watchdog reboots, current limiters, voltage derating, redundancy.</li>
+<li><b>Proof that it works (RHA):</b> mission dose ×2 margin, no latch-up below LET 75, no burnout below LET 37, plus a measured orbit rate. This repo prints that verdict for you (EXP05).</li>
+</ol>
+<p>You now know more than most interview candidates. Next: press Run and see the numbers move.</p>
+</div>
+
+<h2 id="demo">🎬 Demo — what you will see</h2>
+<div class="grid">
+<div class="card"><b>1. Environment ladder</b><img src="results/exp01_env.png" alt="Mission dose ladder"><p class="mut">7 orders of magnitude: avionics → LEO → GEO → LHC alcove → HL-LHC inner (1 MGy).</p></div>
+<div class="card"><b>2. SEE Weibull</b><img src="results/exp02_weibull.png" alt="Weibull SEE"><p class="mut">COTS vs rad-hard SRAM: ~100× gap at low LET. This is why part choice matters.</p></div>
+<div class="card"><b>3. TID + SOA</b><img src="results/exp03_tid.png" alt="TID Vth"><p class="mut">Planar drifts −123 mV @100 krad; FinFET −4.7 mV. Opposite story for SiC voltage.</p></div>
+</div>
+<div class="card" style="margin-top:14px"><b>4. TMR gain</b><br><img src="results/exp04_tmr.png" style="max-width:520px" alt="TMR reliability"><p class="mut">Single 0.90 → voted 0.972. Scrubbing: 10× storm flux collapses uncorrectable-interval &gt;10× — scrub faster or predict storms.</p></div>
+
+<h2 id="features">✨ Features — everything in one place</h2>
+<table><tr><th>Area</th><th>What you get</th><th>Where</th></tr>
+<tr><td>Environments</td><td>LEO/GEO/deep-space/LHC/avionics reference + live NOAA GOES fetch + mission×RDM calculator</td><td><code>src/radhard/environments.py</code>, EXP01</td></tr>
+<tr><td>Interactions</td><td>LET→charge, Qcrit, rad↔Gy, HEH→Gy, NIEL factors</td><td><code>src/radhard/interactions.py</code></td></tr>
+<tr><td>Effects</td><td>Weibull SEE, TID Vth (planar/FinFET/FDSOI/bipolar), SiC safe-area</td><td><code>src/radhard/effects.py</code>, EXP02–03</td></tr>
+<tr><td>Mitigation</td><td>TMR reliability, ECC scrub MTBU, availability</td><td><code>src/radhard/mitigation.py</code>, EXP04</td></tr>
+<tr><td>Assurance</td><td>RDM≥2, SEL&gt;75, SEB&gt;37 gates + alpha-factor orbit projection</td><td><code>src/radhard/rha.py</code>, EXP05</td></tr>
+<tr><td>Reproducibility</td><td>Docker, CI, pytest, CSV+PNG+JSON outputs, this preview</td><td><code>run_all.sh</code>, <code>Dockerfile</code></td></tr>
+</table>
+
+<h2 id="stories">👥 User stories — who is this for?</h2>
+<div class="grid">
+<div class="card"><b>🎓 Student (KULeuvenX Weeks 0–5)</b><p>Map each week to an experiment. Change LET, watch Weibull move. Submit the plots as coursework.</p></div>
+<div class="card"><b>🛰️ CubeSat team</b><p>Enter 550 km 3-yr dose (7.5 krad). See COTS ADC passes TID but fails SEL → add latch-up protection or pick RHBD FPGA.</p></div>
+<div class="card"><b>⚡ Power engineer</b><p>Check your SiC bus: 800 V = high SEB risk, 150 V = safe. Take the SOA CSV to your derating review.</p></div>
+<div class="card"><b>🔬 Accelerator electronics</b><p>Scale CHARM fluence (1e11 → mission) with alpha-factor. Justify test time to your project leader.</p></div>
+<div class="card"><b>💼 New-space buyer</b><p>Ask vendors for LETth + RDM numbers. If they cannot provide, you now know the risk.</p></div>
+<div class="card"><b>📝 Researcher / PhD</b><p>Fork H1–H6 hidden patterns: scaling inversion, wide-bandgap paradox, scrub non-linearity, peripheral bottleneck, low-E protons, system blindness.</p></div>
+</div>
+
+<h2 id="quickstart">🚀 Quickstart (copy-paste, 60 seconds)</h2>
+<div class="block"><pre>git clone &lt;this-repo&gt; && cd radhard-electronics-benchmark-2026
+pip install -r requirements.txt
+bash run_all.sh
+# → results/*.csv + *.png + pytest 6 passed
+# Docker alternative:
+docker compose up --build</pre></div>
+<details><summary>What each command does</summary>
+<p><code>pip install</code> gets numpy/matplotlib/scipy/requests. <code>run_all.sh</code> runs EXP01→EXP05 in order, saves figures, then runs tests. No internet required except EXP01 live check (falls back to quiet baseline offline).</p>
+</details>
+
+<h2 id="exps">🔬 Experiments — step-by-step reasoning</h2>
+<table><tr><th>ID</th><th>Question</th><th>Key number (verified)</th></tr>
+<tr><td>EXP01</td><td>How harsh is my mission? Is space quiet today?</td><td>LEO 7.5 krad/3yr, GEO 45 krad/3yr, HL-LHC inner 1,000,000 krad/10yr; GOES 2026-10-02 QUIET (3718 pts)</td></tr>
+<tr><td>EXP02</td><td>Will a particle flip my bit?</td><td>Qdep 10.37 fC; Qcrit 18 vs 0.375 fC; GEO upset/day 0.069 vs 0.0035</td></tr>
+<tr><td>EXP03</td><td>Will dose drift me? Will voltage kill me?</td><td>planar −123 mV vs FinFET −4.7 mV @100 krad; SiC safe &lt;200 V</td></tr>
+<tr><td>EXP04</td><td>Do TMR + scrub save me?</td><td>0.90→0.972; MTBU 962kh→9.5kh when rate ×10</td></tr>
+<tr><td>EXP05</td><td>Can I fly this part?</td><td>GEO: COTS FAIL, RHBD PASS, SiC@800V FAIL unless derated</td></tr>
+</table>
+
+<h2 id="rha">✅ RHA gate — the strict checklist</h2>
+<div class="card"><p><b>PASS needs all three:</b> <span class="badge">RDM ≥ 2</span> <span class="badge">SEL LETth &gt; 75</span> <span class="badge">SEB LETth &gt; 37 + derating</span></p>
+<p class="mut">Example output <code>results/exp05_rha.csv</code>: GEO 45 krad → COTS_ADC RDM 0.44 FAIL; RHBD_FPGA 6.67 PASS; SiC@800V SEB FAIL → derate to 150 V PASS. LEO 7.5 krad → COTS TID passes but SEL still fails → needs latch-up mitigation.</p></div>
+
+<h2 id="faq">❓ FAQ (simple answers)</h2>
+<details><summary>Do I need a lab?</summary><p>No. Learn fully from simulation. When you do test, bring the RHA table to the facility (TAMU/LBNL/PSI/CHARM) and they will know what to do.</p></details>
+<details><summary>Which file do I show my boss?</summary><p><code>results/exp05_rha.csv</code> + this page. One table = flight rationale.</p></details>
+<details><summary>Can I use COTS in space?</summary><p>Yes, in LEO with mitigation (scrub, watchdog, current limiter) and eyes open on SEL. No, in GEO for critical functions without proof.</p></details>
+<details><summary>Why Docker?</summary><p>Same numpy/matplotlib versions everywhere → same plots for reviewer, student, and CI.</p></details>
+
+<footer>MIT · Rebuild: <code>bash run_all.sh</code> · Live anchor: NOAA GOES differential protons 2026-10-02 (QUIET) · Course map: KULeuvenX Weeks 0–5 · Generated from executed code, not screenshots of theory.</footer>
+</div></body></html>
