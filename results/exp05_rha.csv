@@ -1,0 +1,9 @@
+mission,part,mission_krad,RDM,TID_PASS,SEL_PASS,SEB_PASS,RHA_PASS
+GEO_3yr,COTS_ADC,45.0,0.44,False,False,True,False
+GEO_3yr,RHBD_FPGA,45.0,6.67,True,True,True,True
+GEO_3yr,SiC_1200V_at_800V,45.0,11.11,True,True,False,False
+GEO_3yr,SiC_1200V_derated_150V,45.0,11.11,True,True,True,True
+LEO_3yr,COTS_ADC,7.5,2.67,True,False,True,False
+LEO_3yr,RHBD_FPGA,7.5,40.0,True,True,True,True
+LEO_3yr,SiC_1200V_at_800V,7.5,66.67,True,True,False,False
+LEO_3yr,SiC_1200V_derated_150V,7.5,66.67,True,True,True,True

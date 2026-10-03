@@ -1,0 +1,103 @@
+{
+  "live": true,
+  "n_points": 3718,
+  "tail": [
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 5.201142130317749e-07,
+      "energy": "115000-143000 keV",
+      "yaw_flip": 0,
+      "channel": "P8C"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 1.9191398678231053e-05,
+      "energy": "11640-23270 keV",
+      "yaw_flip": 0,
+      "channel": "P5"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 1.3851227720351744e-07,
+      "energy": "160000-242000 keV",
+      "yaw_flip": 0,
+      "channel": "P9"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 0.00015214845188893378,
+      "energy": "1900-2300 keV",
+      "yaw_flip": 0,
+      "channel": "P2A"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 0.0,
+      "energy": "2310-3340 keV",
+      "yaw_flip": 0,
+      "channel": "P2B"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 6.80868197378004e-07,
+      "energy": "25900-38100 keV",
+      "yaw_flip": 0,
+      "channel": "P6"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 6.206566638411459e-08,
+      "energy": "276000-404000 keV",
+      "yaw_flip": 0,
+      "channel": "P10"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 0.0,
+      "energy": "3400-6480 keV",
+      "yaw_flip": 0,
+      "channel": "P3"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 1.622468289497192e-06,
+      "energy": "40300-73400 keV",
+      "yaw_flip": 0,
+      "channel": "P7"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 5.898238214285811e-06,
+      "energy": "5840-11000 keV",
+      "yaw_flip": 0,
+      "channel": "P4"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 4.536624089723773e-07,
+      "energy": "83700-98500 keV",
+      "yaw_flip": 0,
+      "channel": "P8A"
+    },
+    {
+      "time_tag": "2026-10-03T18:20:00Z",
+      "satellite": 18,
+      "flux": 9.989277032218524e-07,
+      "energy": "99900-118000 keV",
+      "yaw_flip": 0,
+      "channel": "P8B"
+    }
+  ],
+  "source": "https://services.swpc.noaa.gov/json/goes/primary/differential-protons-1-day.json"
+}

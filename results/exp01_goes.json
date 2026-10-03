@@ -1,0 +1,15 @@
+{
+  "baseline": {
+    "date": "2026-10-02",
+    "P1_1020_1860keV_flux": 0.008,
+    "P5_11640_23270keV_flux": 1.2e-05,
+    "P8_83700_118000keV_flux": 1e-06,
+    "verdict": "QUIET",
+    "source": "https://services.swpc.noaa.gov/json/goes/primary/differential-protons-1-day.json"
+  },
+  "live_fetch": {
+    "live": true,
+    "n_points": 3718
+  },
+  "conclusion": "QUIET baseline holds; benchmarks comparable across time unless SPE flagged."
+}
